@@ -23,8 +23,8 @@ class ScheduleType extends AbstractType
             ->add('status', 'hidden', array('data' => 'Pending'))
             ->add('lastname', 'text', array('label' => 'Last name'))
             ->add('email', 'text', array('label' => 'Email address'))
-            ->add('phone', 'text', array('label' => 'Please indicate what phone number would you like the participant to call you:'))
-            ->add('scheduledatetime','datetime', array('format' => "yyyy-MM-dd HH:mm",'widget' => "single_text", 'label' => 'Date and time when would like to deliver presentation?'))
+            ->add('phone', 'text', array('label' => 'Please indicate at what phone number would you like the participant to call you:'))
+            ->add('scheduledatetime','datetime', array('format' => "yyyy-MM-dd HH:mm",'widget' => "single_text", 'label' => 'Date and time when you would like to deliver this presentation?'))
             ->add('submit', 'submit', array('label' => 'CREATE AND SEND INVITATION'));
     }
     

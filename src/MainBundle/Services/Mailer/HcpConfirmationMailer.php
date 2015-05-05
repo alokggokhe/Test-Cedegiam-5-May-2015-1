@@ -30,16 +30,17 @@ class HcpConfirmationMailer
      * @param Schedule $schedule MainBundle/Entity/Schedule
      * @param OwaUser $schedule Cegedim\Bundle\OwaCasBundle\Security\User\OwaUser
      * @param ucb_patient_action $ucb_patient_action Dandelion Patient URL
+     * @param file_path $file_path ICS file path
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function sendMail(Schedule $schedule, OwaUser $owauser, $ucb_patient_action)
+    public function sendMail(Schedule $schedule, OwaUser $owauser, $ucb_patient_action, $file_path)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('UpComing Patient Education Session - '. $schedule->getTitle())
             // ->setFrom('no-reply@dandelion.com')
             // ->setTo($owauser->getEmail())
             ->setFrom('alokggokhe@ymail.com')
-            ->setTo('alokg@alohatechnology.com')
+            ->setTo('nirajm@alohatechnology.com')
             ->setBody($this->templating->render('MainBundle:Mail:hcp_confirmation.html.twig', array(
                 'firstname' => $schedule->getFirstname(),
                 'lastname' => $schedule->getLastname(),
@@ -51,7 +52,8 @@ class HcpConfirmationMailer
                 'hcp_name' => $owauser->getUsername(),
                 'date' => $schedule->getScheduledatetime()->format('Y/m/d'),
                 'time' => $schedule->getScheduledatetime()->format('h:i A'),
-            )),'text/html');
+            )),'text/html')
+            ->attach(\Swift_Attachment::fromPath($file_path));
 
         $this->mailer->send($message);
 

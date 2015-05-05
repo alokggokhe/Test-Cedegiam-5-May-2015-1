@@ -16,7 +16,7 @@ New Schedule | UCB Dandelion
 	<section id="panel">
 		<div class="panel schedule_form">
 			<div class="panel-form-first-part">
-				<a href="{{ path('logout') }}" id="logout">Log out</a>
+				<a href="{{ path('logout') }}" id="logout" title="Logout">Log out</a>
 				<h1 class="panel-title-form"><b>Remote Patient Education Organizer</b></h1>
 			</div>
 			<div class="panel-form-second-part"></div>
@@ -92,10 +92,8 @@ New Schedule | UCB Dandelion
 				<label for="schedule_upload">To upload your PPT, please open the remote eDetailing platform by clicking <a href="{{ ucb_patient_action }}" title="eDetailing" target="_blank">here</a> and go to administrator/upload a documents</label>
 			</div>
 			<div class="row button-group">
-				<a href="{{ path('remote_patient_option') }}" title="Cancel">
-					<button type="button" class="btn btn-default">Cancel</button>
-				</a>
-				{{ form_widget(form.submit, {attr:{'formnovalidate':'formnovalidate','class':'btn btn-primary'}}) }}
+				<a href="{{ path('remote_patient_option') }}" title="CANCEL" type="button" class="btn btn-default">Cancel</a>
+				{{ form_widget(form.submit, {attr:{'formnovalidate':'formnovalidate','class':'btn btn-primary','title':'CREATE AND SEND INVITATION'}}) }}
 			</div>
 			{% if schedule is defined %}
 				<script type="text/javascript">

@@ -28,19 +28,24 @@
 .schedule_list_form .editschedule {
 	padding-right: 3px;
 }
+@media(max-width:500px){
+	.schedule_list_form .editschedule {
+		padding-right: 11px;
+	}	
+}
 .schedule_list_form span {
 	font-size: 13px;
 }
 .schedule_list_form .col-xs-6 button {
-	margin: 3px;
+	margin: 1px 3px 9px 3px;
 }
 .schedule_list_form .col-xs-6 span {
 	margin-bottom: 10px;
 	padding: 3px 5px;
 }
 .schedule_list_form .col-xs-6 {
-	padding-left: 3px;
-	padding-right: 5px;
+	padding-left: 0px;
+	padding-right: 3px;
 }
 .schedule_list_form .schedule_list_first {
 	margin-top: 50px;
@@ -72,4 +77,10 @@
 .schedule_form .button-group {
 	float: right;
 	margin-top: -73px;
+}
+.schedule_form .glyphicon-calendar {
+	cursor: pointer;
+}
+.schedule_list_form {
+	padding-bottom: 50px !important;
 }

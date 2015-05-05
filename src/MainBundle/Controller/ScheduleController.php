@@ -133,19 +133,49 @@ class ScheduleController extends Controller
 		if($this->get('security.context')->getToken()->getUser() instanceof OwaUser){
 			$owauser = $this->get('security.context')->getToken()->getUser();
 		}
-
-		$ucb_patient_action = $this->container->getParameter('ucb_patient_login');
-
 		$doctrine  = $this->getDoctrine()->getManager();
 		$schedule  = $doctrine->getRepository('MainBundle:Schedule')->find($schedule_id);
-		$hcpPatientConfirmationMailer       = $this->get('hcp_patient_confirmation_mailer');
-		$sendHcpPatientConfirmationMailer   = $hcpPatientConfirmationMailer->sendMail($schedule,$owauser,$ucb_patient_action);
+		$ucb_patient_action = $this->container->getParameter('ucb_patient_login');
 
-		$hcpConfirmationMailer       = $this->get('hcp_confirmation_mailer');
-		$sendHcpConfirmationMailer   = $hcpConfirmationMailer->sendMail($schedule,$owauser,$ucb_patient_action);    
+		//create the ics file
+		$file_path = $this->createIcsFile($schedule,$owauser);
+
+		$hcpPatientConfirmationMailer       = $this->get('hcp_patient_confirmation_mailer');
+		$sendHcpPatientConfirmationMailer   = $hcpPatientConfirmationMailer->sendMail($schedule,$owauser,$ucb_patient_action,$file_path);
+		$hcpConfirmationMailer       		= $this->get('hcp_confirmation_mailer');
+		$sendHcpConfirmationMailer   		= $hcpConfirmationMailer->sendMail($schedule,$owauser,$ucb_patient_action,$file_path);    
 
 		if (true !== $sendHcpPatientConfirmationMailer && true !== $sendHcpConfirmationMailer){
 			throw new \Exception('Send mail exception');
 		}
+		unlink($file_path);
+	}
+
+	private function createIcsFile(Schedule $schedule,OwaUser $owauser)
+	{
+		$timezone = date_default_timezone_get();
+		$provider = $this->get('bomo_ical.ics_provider');
+		$tz = $provider->createTimezone();
+		$tz->setTzid($timezone)
+		   ->setProperty('X-LIC-LOCATION', $tz->getTzid());
+		$cal = $provider->createCalendar($tz);
+		$cal->setName($schedule->getTitle())
+			->setDescription($schedule->getTitle());
+		$datetime = $schedule->getScheduledatetime();
+		$event = $cal->newEvent();
+		$event->setStartDate($datetime)
+			  ->setEndDate($datetime->modify('+5 hours'))
+			  ->setName($schedule->getTitle())
+			  ->setDescription($schedule->getTitle())
+			  ->setAttendee($schedule->getEmail())
+			  ->setAttendee($schedule->getFirstname().' '.$schedule->getLastname())
+			  ->setOrganizer($owauser->getEmail());
+		$alarm = $event->newAlarm();
+		$alarm->setAction('display')
+			  ->setDescription($event->getProperty($schedule->getTitle()));
+		$calstr = $cal->returnCalendar();
+		$file_path = $this->container->getParameter('kernel.root_dir').'/../web/bundles/main/uploads/ics/'. $schedule->getId() .'_calender.ics'; 
+		file_put_contents($file_path, $calstr);
+		return $file_path;
 	}
 }

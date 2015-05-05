@@ -24,7 +24,8 @@ class AppKernel extends Kernel
             new MainBundle\MainBundle(),
 
             new Cegedim\Bundle\OwaCasBundle\OwaCasBundle(),
-			new AdminBundle\AdminBundle(),
+	    new AdminBundle\AdminBundle(),
+	    new BOMO\IcalBundle\BOMOIcalBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

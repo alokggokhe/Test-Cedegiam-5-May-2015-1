@@ -26,7 +26,8 @@
         "craue/formflow-bundle": "dev-master",
         "twbs/bootstrap-sass": "dev-master",
 
-        "cegedim/owa-cas-bundle" : "dev-develop"
+        "cegedim/owa-cas-bundle" : "dev-develop",
+	"bomo/ical-bundle": "1.0.*"
 
     },
     "require-dev": {
