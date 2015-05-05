@@ -39,7 +39,7 @@ class HcpConfirmationMailer
             // ->setFrom('no-reply@dandelion.com')
             // ->setTo($owauser->getEmail())
             ->setFrom('alokggokhe@ymail.com')
-            ->setTo('nirajm@alohatechnology.com')
+            ->setTo('alokg@alohatechnology.com')
             ->setBody($this->templating->render('MainBundle:Mail:hcp_confirmation.html.twig', array(
                 'firstname' => $schedule->getFirstname(),
                 'lastname' => $schedule->getLastname(),
@@ -53,7 +53,7 @@ class HcpConfirmationMailer
                 'time' => $schedule->getScheduledatetime()->format('h:i A'),
             )),'text/html');
 
-        //$this->mailer->send($message);
+        $this->mailer->send($message);
 
         return true;
     }

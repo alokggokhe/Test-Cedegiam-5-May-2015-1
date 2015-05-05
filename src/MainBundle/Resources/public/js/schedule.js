@@ -1,7 +1,4 @@
 $(document).ready(function(){
-
-	$('.datetimepicker').datetimepicker();
-
 	$('.delete_schedule').unbind().click(function() {
 		var schedule_id = $('#entity_delete_id').val();    
 		$.ajax({

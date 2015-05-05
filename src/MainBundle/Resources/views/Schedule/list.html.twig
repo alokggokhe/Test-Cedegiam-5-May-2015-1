@@ -58,7 +58,7 @@ Manage Schedule | UCB Dandelion
 							<span class="col-md-3 form-control input-sm">{{schedule.email|length > 14 ? schedule.email|slice(0, 12) ~ '..' : schedule.email }}</span>
 						</div>
 						<div class="col-xs-6 col-md-4">
-	                        <span class="col-md-3 form-control input-sm">{{schedule.scheduledatetime|date("m/d/Y H:ia")}}</span>
+	                        <span class="col-md-3 form-control input-sm">{{schedule.scheduledatetime|date("Y/m/d h:i A")}}</span>
 	                        <span class="col-md-3 form-control input-sm">{{ schedule.status }}</span>
 	                    </div>
 						<div class="col-xs-6 col-md-1">

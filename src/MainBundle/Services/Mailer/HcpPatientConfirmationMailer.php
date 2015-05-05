@@ -40,7 +40,7 @@ class HcpPatientConfirmationMailer
             // ->setFrom($owauser->getEmail())
             // ->setTo($schedule->getEmail())
             ->setFrom('alokggokhe@ymail.com')
-            ->setTo('nirajm@alohatechnology.com')
+            ->setTo('alokg@alohatechnology.com')
             ->setBody($this->templating->render('MainBundle:Mail:hcp_patient_confirmation.html.twig', array(
                 'firstname' => $schedule->getFirstname(),
                 'lastname' => $schedule->getLastname(),
@@ -53,7 +53,7 @@ class HcpPatientConfirmationMailer
                 'time' => $schedule->getScheduledatetime()->format('h:i A'),
             )),'text/html');
 
-        //$this->mailer->send($message);
+        $this->mailer->send($message);
 
         return true;
     }
